@@ -10,6 +10,29 @@ import {
   GET_SINGLE_PRODUCT_ERROR,
 } from '../actions'
 
+interface Product {
+  id: string;
+  name: string;
+  price: number;
+  image: string;
+  featured: boolean;
+  colors: string[];
+  company: string;
+  description: string;
+  category: string;
+  shipping: boolean;
+}
+
+interface State {
+  products_loading: boolean;
+  products_error: boolean;
+  products: Product[];
+  featured_product: Product[];
+  single_product_loading: boolean;
+  single_product_error: boolean;
+  single_product: Product;
+}
+
 const products_url = 'https://course-api.com/react-store-products'
 
 const initialState = {
@@ -27,7 +50,7 @@ const ProductsContext = React.createContext()
 export const ProductsProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
-  const fetchProducts = async (url) => {
+  const fetchProducts = async (url: string) => {
     dispatch({ type: GET_PRODUCTS_BEGIN })
     try {
       const response = await axios.get(url)

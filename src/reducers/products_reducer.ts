@@ -45,7 +45,7 @@ interface State {
   single_product: Product;
 }
 
-const products_reducer = (state: State, action: Action) => {
+const products_reducer = (state: State| Error, action: Action) => {
   if (action.type === ActionKind.GET_PRODUCTS_BEGIN) {
     return { ...state, products_loading: true };
   }
